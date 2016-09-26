@@ -10,45 +10,45 @@
 
     ToBuyController.$inject = ['ShoppingListCheckOffService'];
     function ToBuyController(ShoppingListCheckOffService) {
-        var itemToBuy = this;
+        var list = this;
 
-        itemToBuy.itemName = "";
-        itemToBuy.itemQuantity = "";
+        list.items = ShoppingListCheckOffService.getShoppingListToBuy();
 
-        itemToBuy.addItem = function () {
-            ShoppingListCheckOffService.addItem(itemToBuy.itemName, itemToBuy.itemQuantity);
+        list.addItem = function (itemIndex) {
+            ShoppingListCheckOffService.addItem(itemIndex);
         }
     }
 
     AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
     function AlreadyBoughtController(ShoppingListCheckOffService){
-        var itemBought = this;
-
-        itemBought.items = ShoppingListCheckOffService.getItems();
+        var list = this;
+        list.items = ShoppingListCheckOffService.getShoppingListBought();
     }
     
     function ShoppingListCheckOffService() {
         var service = this;
 
         //List of shopping items
-        var items = [];
+        var itemToBuy = [
+            {name: "Cookies", quantity: 15},
+            {name: "Milk", quantity: 13},
+            {name: "Chocolate", quantity: 35}
+        ];
 
-        service.addItem = function (itemName, quantity) {
-            var item = {
-                name: itemName,
-                quantity: quantity
-            };
-            items.push(item);
+        var itemBought = [];
+
+        service.addItem = function (itemIndex) {
+            itemBought.push(itemToBuy[itemIndex]);
+            itemToBuy.splice(itemIndex, 1);
         };
 
-        console.log(items);
 
-        service.removeItem = function (itemIndex) {
-            items.splice(itemIndex, 1);
+        service.getShoppingListToBuy = function () {
+            return itemToBuy;
         }
 
-        service.getItems = function () {
-            return items;
+        service.getShoppingListBought = function () {
+            return itemBought;
         }
     }
 
