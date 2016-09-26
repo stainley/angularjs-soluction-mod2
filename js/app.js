@@ -32,7 +32,9 @@
         var itemToBuy = [
             {name: "Cookies", quantity: 15},
             {name: "Milk", quantity: 13},
-            {name: "Chocolate", quantity: 35}
+            {name: "Chocolate", quantity: 35},
+            {name: "Fish", quantity: 3},
+            {name: "Pizza", quantity: 2}
         ];
 
         var itemBought = [];
